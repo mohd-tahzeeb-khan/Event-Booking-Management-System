@@ -117,6 +117,9 @@ c.drawCentredString(90,265,"GRAND TOTAL.:")
 
 c.drawString(20,290,"Party sign")
 c.drawRightString(180,290,"For Dawat Lawn")
+
+
+
 # End the Page and Start with new
 c.showPage()
 # Saving the PDF

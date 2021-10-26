@@ -16,5 +16,5 @@ def create_calcular(top, datess):
 root=tk.Tk()
 size='500x300'
 root.geometry(size)
-create_calcular(root, '23')
+create_calcular(root, '2')
 root.mainloop()

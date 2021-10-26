@@ -12,7 +12,7 @@ today= date.today()
 
 root = tk.Tk()
 
-events={'2021-10-28':('London','meeting'),\
+events={'2021-10-28':('London',' meeting'),\
     '2021-10-15':('Paris','meeting'),\
     '2018-07-30':('New York','meeting')}
 
