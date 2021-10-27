@@ -2,7 +2,7 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
-from tkcalendar import Calendar
+from tkcalendar import Calendar, DateEntry
 import PIL
 import datetime
 from PIL import Image, ImageTk
@@ -11,71 +11,171 @@ from datetime import date
 
 
 class Daata_Decorations():
+    
     def on_enter(self,e):
         self.btn.config(background='red', foreground= "white")
 
     def on_leave(self,e):
         self.btn.config(background= 'SystemButtonFace', foreground= 'black')
+    def reset(self):
+        party_person_entry.delete(0,END)
+        party_name_entry.delete(0, END)
+        party_phone_entry.delete(0, END)
+        party_alterphone_entry.delete(0, END)
+        Advance_entry.delete(0, END)
+        Address_entry.delete(0, END)
+        
+    def total(self):
+        a='24000'
+        return a
 
     def add_booking(self):
+        global party_person_entry, party_name_entry, party_phone_entry, party_alterphone_entry, Advance_entry,Address_entry
+        today= date.today()
         add_book=tk.Tk()
         add_book.geometry('1200x800')
         add_book.title('BOOKING')
-        
+        self.guard=StringVar(add_book)
+        self.no_guard=StringVar(add_book)
+        self.cleaning_charges=StringVar(add_book)
+        self.water__charges=StringVar(add_book)
+        self.electric_charges=StringVar(add_book)
+        self.lawn_rent=StringVar(add_book)
+        self.stage=StringVar(add_book)
+        self.decoration=StringVar(add_book)
+        self.bill=StringVar(add_book)
+        self.bill.set('DL975')
+        self.grandtotal=StringVar(add_book)
+       
+
+
+
         frame_main=Frame(add_book,width=1180, height=780, bg='black').place(x=10,y=10)
         frame_heading=Frame(add_book, width=1170, height=70, bg='white').place(x=15, y=15)
         heading_label=Label(add_book, text='BOOKING',font=('arail',35, 'bold'),fg='blue', bg='white').pack(side=TOP,pady=20)
         main_frame=Frame(add_book, height=690, width=1170, bg='white', relief=SUNKEN).place(x=15, y=95)
 
 
-        add_btn=Button(add_book, text='ADD BOOKING', width=15,     font=('arail', 10, 'bold'),height=2, fg='white', bg='green').place(x=320,y=730)
-        add_btn=Button(add_book, text='RESET', width=15, height=2, font=('arail', 10, 'bold'),fg='Black', bg='yellow').place(x=520,y=730)
-        add_btn=Button(add_book, text='CLOSE', width=15, height=2, font=('arail', 10, 'bold'),fg='white', bg='red', command=add_book.destroy).place(x=720,y=730)
+        
 
 
         party_billno_label=Label(add_book, text='Bill No:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=110)
-        party_bill_no_entry=Entry(add_book, width=25,state=DISABLED,font=(15), relief=SUNKEN, bd=3).place(x=250, y=110)
+        party_bill_no_entry=Entry(add_book, width=25,state=DISABLED,textvariable=self.bill,font=(15), relief=SUNKEN, bd=3)
+        party_bill_no_entry.place(x=250, y=110)
+
         party_name_label=Label(add_book, text='Party Name:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=150)
-        party_bill_no_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3).place(x=250, y=150)
+        party_name_entry=Entry(add_book, width=25,justify='center', relief=SUNKEN,font=(15), bd=3)
+        party_name_entry.place(x=250, y=150)
 
-        party__label=Label(add_book, text='Phone No:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=190)
-        party_bill_no_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3).place(x=250, y=190)
+        party_phone_label=Label(add_book, text='Phone No:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=190)
+        party_phone_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3)
+        party_phone_entry.place(x=250, y=190)
 
-        party_label=Label(add_book, text='Alternative Phone no:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=230)
-        party_bill_no_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3).place(x=250, y=230)
+        party_alterphone_label=Label(add_book, text='Alternative Phone no:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=230)
+        party_alterphone_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3)
+        party_alterphone_entry.place(x=250, y=230)
 
-        party_label=Label(add_book, text='Booking for Date:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=270)
-        party_bill_no_entry=Entry(add_book, width=25, relief=SUNKEN, font=(15),bd=3).place(x=250, y=270)
+        party_label=Label(add_book, text='Occasion:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=270)
+        event_choosen = ttk.Combobox(add_book,font=(12), width=23)
+        event_choosen['values'] = ('MARRIAGE','HALDI & SANGEET','ENGAGEMENT', 'ANNIERSARY', 'BIRTHDAY', 'FAMILY GET-TOGETHER','OFFICE EVENT', 'FAREWELL', 'OTHER')
+        event_choosen.place(x=250, y=270)
+        event_choosen.current(0)
 
         party_label=Label(add_book, text='Person:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=310)
-        party_bill_no_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3).place(x=250, y=310)
+        party_person_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3)
+        party_person_entry.place(x=250, y=310)
 
-        party_label=Label(add_book, text='Advance:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=350)
-        party_bill_no_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3).place(x=250, y=350)
+        Advance_label=Label(add_book, text='Advance:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=350)
+        Advance_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3)
+        Advance_entry.place(x=250, y=350)
+
+        Date_of_booking_label=Label(add_book, text='Booking For Date:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=390)
+        #Date_of_booking_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15),state=DISABLED, bd=3).place(x=250, y=390)
+        #cal=Calendar(add_book, selectmode='day', weekendbackground='white', showweeknumbers=False, weekendforeground='black')
+        cal=DateEntry(add_book,selectmode='day',year=today.year,date_pattern='dd/MM/yyyy',weekendbackground='white', month=today.month,showweeknumbers=False, weekendforeground='black', day=today.day,width=24, font=(15))
+        cal.place(x=250, y=390)
+        Address_label=Label(add_book, text='Address:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=430)
+        Address_entry=Entry(add_book, width=25, relief=SUNKEN,font=(15), bd=3)
+        Address_entry.place(x=250, y=430)
+
+        self.guard.set(300)
+        self.no_guard.set(1)
+        self.cleaning_charges.set(300)
+        self.water__charges.set(100)
+        self.electric_charges.set(600)
+        self.lawn_rent.set(12000)
+        self.decoration.set(5200)
+        self.stage.set(1500)
+        
 
 
 
-        lawn_label=Label(add_book, text='Lawn Rent:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=110)
-        lawn_decoration_label=Label(add_book, text='Lawn Decoration:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=150)
-        gate_label=Label(add_book, text='Gate+Stage:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=190)
-        watchman_label=Label(add_book, text='Watchman:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=230)
-        cleaning_name_label=Label(add_book, text='Cleaning Charges:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=270)
-        water_label=Label(add_book, text='Water Charges:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=310)
-        electric__label=Label(add_book, text='Electric Charges:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=350)
-        #party_label=Label(add_book, text=':', bg='White', font=('arail', 12, 'bold')).place(x=50, y=140)
+        self.lawn_label=Label(add_book, text='Lawn Rent:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=110)
+        self.lawn_rent_entry=Entry(add_book, textvariable=self.lawn_rent, width=25, relief=SUNKEN, font=(15), bd=3)
+        self.lawn_rent_entry.place(x=800, y=110)
+        self.lawn_decoration_label=Label(add_book, text='Lawn Decoration:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=150)
+        self.decoration_entry=Entry(add_book, textvariable=self.decoration, width=25, relief=SUNKEN, font=(15), bd=3)
+        self.decoration_entry.place(x=800, y=150)
+        self.gate_label=Label(add_book, text='Gate+Stage:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=190)
+        self.gate_entry=Entry(add_book, textvariable=self.stage,width=25, relief=SUNKEN, font=(15), bd=3)
+        self.gate_entry.place(x=800, y=190)
+        self.watchman_label=Label(add_book, text='Watchman:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=230)
+        
+        self.watchman__charges_spin = Spinbox(add_book, from_ = 0, to =1000, increment=50,textvariable=self.guard,  width=5,font=(15))
+        self.watchman__charges_spin.place(x=800, y=230)
+        self.watchman_no_charges_spin = Spinbox(add_book, from_ = 0, to =9, textvariable=self.no_guard,  width=2,font=(15))
+        self.watchman_no_charges_spin.place(x=990, y=230)
+        
+        self.cleaning_name_label=Label(add_book, text='Per Guard,', bg='White', font=('arail', 12, 'bold')).place(x=890, y=230)
+        self.cleaning_name_label=Label(add_book, text='Guard', bg='White', font=('arail', 12, 'bold')).place(x=1050, y=230)
+        self.cleaning_name_label=Label(add_book, text='Cleaning Charges:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=270)
+        self.cleaning__charges_spin = Spinbox(add_book,textvariable=self.cleaning_charges, from_ = 0, to =9999, increment=50, width=5,font=(15))
+        self.cleaning__charges_spin.place(x=800, y=270)
+        self.cleaning_name_label=Label(add_book, text='Per Event Charges', bg='White', font=('arail', 12, 'bold')).place(x=890, y=270)
 
-        #party_label=Label(add_book, text=':', bg='White', font=('arail', 12, 'bold')).place(x=50, y=140)
+        self.water_label=Label(add_book, text='Water Charges:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=310)
+        self.water__charges_spin = Spinbox(add_book, from_ = 0,textvariable=self.water__charges, to =9999, increment=50, width=5, font=(15))
+        self.water__charges_spin.place(x=800, y=310)
+        self.cleaning_name_label=Label(add_book, text='Per Event Charges', bg='White', font=('arail', 12, 'bold')).place(x=890, y=310)
+        self.electric__label=Label(add_book, text='Electric Charges:', bg='White', font=('arail', 12, 'bold')).place(x=600, y=350)
+        self.electric__charges_spin = Spinbox(add_book, from_ = 0, textvariable=self.electric_charges, to =9999, increment=50,  width=5,font=(15))
+        self.cleaning_name_label=Label(add_book, text='Per Event Charges', bg='White', font=('arail', 12, 'bold')).place(x=890, y=350)
+        self.electric__charges_spin.place(x=800, y=350)
+        
+        
+        self.cal_total_label=Label(add_book, text='TOTAL:', bg='White', font=('arail', 16, 'bold')).place(x=600, y=500)
+        self.grand_total_entry=Entry(add_book, width=15,textvariable=self.grandtotal, state=DISABLED,relief=SUNKEN,font=(16), bd=3)
+        self.grand_total_entry.place(x=800, y=500)
+    
 
 
-
-        #btn_frame=Frame(add_book, height=100, width=500, bg='black', relief=RAISED).pack(x=300, y=650)
-        #btn_frame=Frame(add_book, height=90, width=500, bg='white', relief=RIDGE, bd=2).pack(side=BOTTOM)
-
-
-
+        self.add_btn=Button(add_book, text='ADD BOOKING', width=15,     font=('arail', 10, 'bold'),height=2, fg='white', bg='green').place(x=320,y=730)
+        self.add_btn=Button(add_book, text='RESET', width=15, height=2, font=('arail', 10, 'bold'),fg='Black', bg='yellow', command=self.reset).place(x=520,y=730)
+        self.add_btn=Button(add_book, text='CLOSE', width=15, height=2, font=('arail', 10, 'bold'),fg='white', bg='red', command=add_book.destroy).place(x=720,y=730)
+        self.cal_button=Button(add_book, text='Calculate', bg='Green', fg='White', font=(15), width=15, command=self.total).place(x=990, y=493)
 
 
         add_book.mainloop()
+    def total(self):
+        self.rent=int(self.lawn_rent_entry.get())
+        self.decoration=int(self.decoration_entry.get())
+        self.stage=int(self.gate_entry.get())
+        self.watchmen=int(self.watchman__charges_spin.get())
+        self.no_guard=int(self.watchman_no_charges_spin.get())
+        self.clean=int(self.cleaning__charges_spin.get())
+        self.water=int(self.water__charges_spin.get())
+        self.electric=int(self.electric__charges_spin.get())
+        self.a=int(self.watchmen)
+        self.b=int(self.no_guard)
+        self.c=self.a*self.b
+        
+        self.grandtotal.set(self.rent+self.decoration+self.stage+self.c+self.clean+self.water+self.electric)
+
+
+
+
+
+
     def Cancel_booking(self):
         cancel_book=tk.Tk()
         cancel_book.geometry('800x800')
@@ -133,9 +233,9 @@ class Daata_Decorations():
         inquiry_frame=Frame(self.main_window, width=490, height=640, bg='white',bd=8, relief= RIDGE).place(x=2, y=130)
         inquirylbl_frame=Frame(self.main_window, width=450, height=56, bg='yellow', relief=RIDGE, bd=3).place(x=20, y=140)
         inquiry_label=Label(self. main_window, text='BOOKING CALENDAR',font=('arail', 25, 'bold'), bg='Yellow').place(x=60, y=145)
-        self.cal=Calendar(self.main_window, selectmode='none')
+        self.cal=Calendar(self.main_window, selectmode='none',showweeknumbers=False,weekendbackground='white', weekendforeground='black')
         
-        self.cal.pack(side=LEFT,padx=20, pady=20, ipady=130)
+        self.cal.pack(side=LEFT,padx=20, ipadx=10,pady=20, ipady=130)
         for k in events.keys():
             date1=datetime.datetime.strptime(k,"%Y-%m-%d").date()
             self.cal.calevent_create(date1, events[k][0], events[k][1])
