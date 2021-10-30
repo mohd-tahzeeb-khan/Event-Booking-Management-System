@@ -8,11 +8,12 @@ class Dawat_lawn_database():
 
 
 
-    def order_booking_event(self,bill, partyname, phone1, phone2, occ, persons, advancereceive, bookingfordate, addressofparty, rent, decoration, stage, watchmen,noofwatch,cleaningcharges,watercharges,electriccharges,totalamt):
+    def order_booking_event(self,bokedondate,bill, partyname, phone1, phone2, occ, persons, advancereceive, bookingfordate, addressofparty, rent, decoration, stage, watchmen,noofwatch,cleaningcharges,watercharges,electriccharges,totalamt):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["Dawat_lawn_2021"]#database name
         Collection = db["Order_booking"]#collection name
         temp_dic={
+            'booked on date':bokedondate,
             'bill No':bill,
             'Party Name':partyname,
             'Phone':phone1,
@@ -30,8 +31,36 @@ class Dawat_lawn_database():
             'cleaning charges':cleaningcharges,
             'water charges':watercharges,
             'eletric charges':electriccharges,
-            'total':totalamt,
+            'total':totalamt
         }
         Collection.insert(temp_dic)
 
-d1=Dawat_lawn_database()
+    def cancel_orderbooking_event(self,bill, phone1,dateforbook):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["Dawat_lawn_2021"]#database name
+        Collection = db["Order_booking"]
+        del_temp_data={
+            'bill No':bill,
+            'phone':phone1,
+            'Booking for date':dateforbook
+        }
+
+
+    def fetch_order_event(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["Dawat_lawn_2021"]#database name
+        Collection = db["Order_booking"]
+
+        z=Collection.find({},{'_id':0})
+        return z
+
+    def fetch_date_event(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["Dawat_lawn_2021"]#database name
+        Collection = db["Order_booking"]
+        i=Collection.find({},{'_id':0})
+        
+        return i
+
+#d1=Dawat_lawn_database()
+#d1.fetch_date_event()

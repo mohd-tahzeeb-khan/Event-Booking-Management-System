@@ -34,8 +34,9 @@ class Daata_Decorations():
     
 
     def add_booking(self):
-        global party_person_entry, party_name_entry, party_phone_entry, party_alterphone_entry, Advance_entry,Address_entry
+        global party_person_entry, party_name_entry, party_phone_entry, today_1, party_alterphone_entry, Advance_entry,Address_entry
         today= date.today()
+        
         add_book=tk.Tk()
         add_book.geometry('1200x800')
         add_book.title('BOOKING')
@@ -63,7 +64,7 @@ class Daata_Decorations():
 
         
 
-
+        
         self.party_billno_label=Label(add_book, text='Bill No:', bg='White', font=('arail', 12, 'bold')).place(x=50, y=110)
         self.party_bill_no_entry=Entry(add_book, width=25,state=DISABLED,textvariable=self.bill,font=(15), relief=SUNKEN, bd=3)
         self.party_bill_no_entry.place(x=250, y=110)
@@ -165,13 +166,15 @@ class Daata_Decorations():
         add_book.mainloop()
 
     def send(self):
+        self.today_1=date.today().strftime('%d-%m-%y')
+        self.date=self.today_1
         self.bill=self.party_bill_no_entry.get()
         self.partyn=self.party_name_entry.get()
         self.phoe=self.party_phone_entry.get()
         self.phone2=self.party_alterphone_entry.get()
         self.event=self.event_choosen.get()
         self.party_person=self.party_person_entry.get()
-        self.advance=self.Advance_entry.get()
+        self.advance=int(self.Advance_entry.get())
         self.calendar=self.cal.get()
         self.add=self.Address_entry.get()
         self.rent=int(self.lawn_rent_entry.get())
@@ -183,7 +186,8 @@ class Daata_Decorations():
         self.water=int(self.water__charges_spin.get())
         self.electric=int(self.electric__charges_spin.get())
         self.total=int(self.grand_total_entry.get())
-        d1.order_booking_event(self.bill,self.partyn,self.phoe,self.phone2,self.event,self.party_person,self.advance,self.calendar,self.add,self.rent,self.decoration,self.stage,self.watchmen,self.no_guard,self.clean,self.water,self.electric, self.total)
+        
+        d1.order_booking_event(self.date,self.bill,self.partyn.upper(),self.phoe,self.phone2,self.event,self.party_person,self.advance,self.calendar,self.add,self.rent,self.decoration,self.stage,self.watchmen,self.no_guard,self.clean,self.water,self.electric, self.total)
        
 
 
@@ -353,15 +357,16 @@ class Daata_Decorations():
         setting_win.mainloop()
    
     def __init__(self):
-        
-        
-        
+        date_temp_empty_list=[]
+        name_temp_empty_list=[]
+        for d in d1.fetch_date_event():
+            date_show=d['Booking for date']
+            name=d['Party Name']
+            date_temp_empty_list.append(date_show)
+            name_temp_empty_list.append(name)
+        for i in date_temp_empty_list:
+            events={i:('london','Program')}
         today= date.today()
-        events={'2021-10-28':('London','Program'),\
-                '2021-10-15':('Paris','Program'),\
-                '2018-07-30':('New York','Program')}
-
-        
         self.main_window=Tk()
         self.dd=StringVar()
         self.mm=StringVar()
@@ -415,10 +420,13 @@ class Daata_Decorations():
         self.cal=Calendar(self.main_window, selectmode='none',showweeknumbers=False,weekendbackground='white', weekendforeground='black')
         
         self.cal.pack(side=LEFT,padx=20, ipadx=10,pady=20, ipady=130)
-        for k in events.keys():
-            date1=datetime.datetime.strptime(k,"%Y-%m-%d").date()
-            self.cal.calevent_create(date1, events[k][0], events[k][1])
-        self.cal.tag_config('Program', background='green', foreground='white')
+        for i in date_temp_empty_list:
+            events={i:('london','Program')}
+            for k in events.keys():
+                #print(k)
+                date1=datetime.datetime.strptime(k,"%d/%m/%Y").date()
+                self.cal.calevent_create(date1, events[k][0], events[k][1])
+            self.cal.tag_config('Program', background='green', foreground='white')
         lbs=Label(self.main_window, text='Date:', bg='White', font=('arial', 15, 'bold')).place(x=20, y=660)
         self.dd_entry=Entry(self.main_window, width=3,textvariable=self.dd,bg='grey', font=('arial', 15, 'bold'))
         self.dd_entry.place(x=80, y=665)
@@ -452,16 +460,21 @@ class Daata_Decorations():
         self.button.place(x=1380, y=142)
 
         self.treeview_frame=Frame(self.main_window, width=1020, height=570, bg='white',bd=8, relief= RIDGE).place(x=500, y=200)
-        self.column_notice=('#1','#2','#3','#4','#5', '#6', '#7', '#8')
+
+        
+        self.column_notice=('#1','#2','#3','#4','#5', '#6', '#7', '#8','#9')
         self.tree_note=ttk.Treeview(self.main_window, columns=self.column_notice, show='headings', height=23)
         self.tree_note.column('#1',anchor=CENTER, width=70)
-        self.tree_note.column('#2',anchor=CENTER, width=285)
+        self.tree_note.column('#2',anchor=CENTER, width=200)
         self.tree_note.column('#3',anchor=CENTER, width=120)
         self.tree_note.column('#4',anchor=CENTER, width=100)
         self.tree_note.column('#5',anchor=CENTER, width=150)
         self.tree_note.column('#6',anchor=CENTER, width=70)
         self.tree_note.column('#7',anchor=CENTER, width=100)
         self.tree_note.column('#8',anchor=CENTER, width=100)
+        self.tree_note.column('#9',anchor=CENTER, width=100)
+
+
         
         self.tree_note.heading('#1', text='Bill No')
         self.tree_note.heading('#2', text='Party Name')
@@ -471,10 +484,21 @@ class Daata_Decorations():
         self.tree_note.heading('#6', text='Person')
         self.tree_note.heading('#7', text='Advance')
         self.tree_note.heading('#8', text='Pending')
-        
-
+        self.tree_note.heading('#9', text='Deal Amount')
         self.tree_note.bind('<<TreeviewSelect>>')
         self.tree_note.place(x=510, y=212)
+
+        for x in d1.fetch_order_event():
+            r1=x['bill No']
+            r2=x['Party Name']
+            r3=x['Booking for date']
+            r4=x['Phone']
+            r5=x['occasion']
+            r6=x['person']
+            r7=x['advance']
+            r8=x['total']
+            r_total=int(r8)-int(r7)
+            self.tree_note.insert("",tk.END, value=[r1,r2,r3,r4,r5,r6,r7,r_total, r8])
         #frame2=Frame(self.maipn_window, width=500, height=100, bg='blue').place(x=1,y=30)
         lbs1=Label(self.main_window, text='DAATA BICHAYAT & DECORATION WORKS', font=('courier', 25, 'bold'), bg='blue', fg='White').place(x=450, y=780)
         self.main_window.resizable(0,0)
