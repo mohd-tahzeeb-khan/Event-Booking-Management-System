@@ -62,5 +62,28 @@ class Dawat_lawn_database():
         
         return i
 
+    def bill_no_declaration(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["Dawat_lawn_2021"]#database name
+        Collection = db["BillingNO"]
+        
+
+        for bill in Collection.find({},{'_id':0}):
+            a=bill['bill']
+            #print(a)
+        return a
+
+
+    def alter_bill_no(self, now, alter):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["Dawat_lawn_2021"]#database name
+        Collection = db["BillingNO"]
+        
+        myquery = { "bill":now }
+        newvalues = { "$set": { "bill": alter} }
+        sex=Collection.update_one(myquery, newvalues)
+        
+
 #d1=Dawat_lawn_database()
-#d1.fetch_date_event()
+#d1.alter_bill_no(18,20)
+

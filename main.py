@@ -22,20 +22,26 @@ class Daata_Decorations():
     def on_leave(self,e):
         self.btn.config(background= 'SystemButtonFace', foreground= 'black')
     def reset(self):
-        party_person_entry.delete(0,END)
-        party_name_entry.delete(0, END)
-        party_phone_entry.delete(0, END)
-        party_alterphone_entry.delete(0, END)
-        Advance_entry.delete(0, END)
-        Address_entry.delete(0, END)
+        self.party_person_entry.delete(0,END)
+        self.party_name_entry.delete(0, END)
+        self.party_phone_entry.delete(0, END)
+        self.party_alterphone_entry.delete(0, END)
+        self.Advance_entry.delete(0, END)
+        self.Address_entry.delete(0, END)
         self.discount_entry.delete(0, END)
         self.grand_total_entry.delete(0,END)
         
     
 
     def add_booking(self):
-        global party_person_entry, party_name_entry, party_phone_entry, today_1, party_alterphone_entry, Advance_entry,Address_entry
+        global party_person_entry,bilnum, party_name_entry, party_phone_entry, today_1, party_alterphone_entry, Advance_entry,Address_entry
         today= date.today()
+        bilnum=d1.bill_no_declaration()
+        a=bilnum
+        b=a+1
+        d1.alter_bill_no(a,b)
+        
+        
         
         add_book=tk.Tk()
         add_book.geometry('1200x800')
@@ -49,7 +55,7 @@ class Daata_Decorations():
         self.stage=StringVar(add_book)
         self.decoration=StringVar(add_book)
         self.bill=StringVar(add_book)
-        self.bill.set('DL975')
+        self.bill.set(bilnum)
         self.grandtotal=StringVar(add_book)
         self.discount=StringVar(add_book)
        
@@ -157,13 +163,14 @@ class Daata_Decorations():
     
 
 
-        self.add_btn=Button(add_book, text='ADD BOOKING', width=15,     font=('arail', 10, 'bold'),height=2, fg='white', bg='green', command=self.send).place(x=320,y=730)
+        self.add_btn=Button(add_book, text='ADD BOOKING', width=15,     font=('arail', 10, 'bold'),height=2, fg='white', bg='green', command=lambda:[self.send(), self.reset()]).place(x=320,y=730)
         self.add_btn=Button(add_book, text='RESET', width=15, height=2, font=('arail', 10, 'bold'),fg='Black', bg='yellow', command=self.reset).place(x=520,y=730)
         self.add_btn=Button(add_book, text='CLOSE', width=15, height=2, font=('arail', 10, 'bold'),fg='white', bg='red', command=add_book.destroy).place(x=720,y=730)
         self.cal_button=Button(add_book, text='Calculate', bg='Green', fg='White', font=(15), width=15, command=self.total).place(x=990, y=493)
 
 
         add_book.mainloop()
+    
 
     def send(self):
         self.today_1=date.today().strftime('%d-%m-%y')
