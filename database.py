@@ -35,7 +35,7 @@ class Dawat_lawn_database():
         }
         Collection.insert(temp_dic)
 
-    def cancel_orderbooking_event(self,bill, phone1,dateforbook):
+    '''def cancel_orderbooking_event(self,bill, phone1,dateforbook):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["Dawat_lawn_2021"]#database name
         Collection = db["Order_booking"]
@@ -44,7 +44,7 @@ class Dawat_lawn_database():
             'phone':phone1,
             'Booking for date':dateforbook
         }
-
+'''
 
     def fetch_order_event(self):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
@@ -92,8 +92,7 @@ class Dawat_lawn_database():
         dic_temp_delete={'bill No':bill_nom}
         print(dic_temp_delete)
         Collection.delete_one(dic_temp_delete)
-        return
-
+        
     def add_worker(self, name, salary, work, phone):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["Dawat_lawn_2021"]#database name
@@ -157,8 +156,7 @@ class Dawat_lawn_database():
             'password':password1
             
         }}
-        print(dic_add_settings)
-        Collection.insert_one(dic_add_settings)
+        Collection.update_one(dic_old_alter_settings, dic_new_alter_setting)
 
     def fetch_settings(self):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
