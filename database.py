@@ -166,6 +166,14 @@ class Dawat_lawn_database():
         
         return i
 
+    def fetch_date_event_booked_or_not(self):
+        myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+        db = myclient["Dawat_lawn_2021"]#database name
+        Collection = db["Order_booking"]
+        i=Collection.find({},{'_id':0})
+        
+        return i
+
 
         
 

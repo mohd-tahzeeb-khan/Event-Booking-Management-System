@@ -479,6 +479,32 @@ class Daata_Decorations():
         self.Update_button.place(x=470, y=575)
         self.setting_win.mainloop()
 
+    def get_date(self):
+        d=self.dd_entry.get()
+        m=self.mm_entry.get()
+        y=self.yy_entry.get()
+        get_d=d+'/'+m+'/'+y
+        for i in d1.fetch_date_event_booked_or_not():
+            date=i['Booking for date']
+            
+            if date==get_d:
+                a='BOOKED'
+
+                self.show_result.set(a)
+                break
+            elif get_d=='':
+                a='no input'
+                self.show_result.set(a)
+            else:
+                a='NO BOOKING'
+                self.show_result.set(a)
+    def date_reset(self):
+        self.dd_entry.delete(0, END)
+        self.mm_entry.delete(0, END)
+        self.yy_entry.delete(0, END)
+        return
+
+
    
     def __init__(self):
         date_temp_empty_list=[]
@@ -536,21 +562,24 @@ class Daata_Decorations():
                 date1=datetime.datetime.strptime(k,"%d/%m/%Y").date()
                 self.cal.calevent_create(date1, events[k][0], events[k][1])
             self.cal.tag_config('Program', background='green', foreground='white')
-        lbs=Label(self.main_window, text='Date:', bg='White', font=('arial', 15, 'bold')).place(x=20, y=660)
-        self.dd_entry=Entry(self.main_window, width=3,textvariable=self.dd,bg='grey', font=('arial', 15, 'bold'))
-        self.dd_entry.place(x=80, y=665)
-        lbs=Label(self.main_window, text='/', bg='White', font=('arial', 20, 'bold')).place(x=125, y=660)
-        self.mm_entry=Entry(self.main_window,width=3, textvariable=self.mm,bg='grey', font=('arial', 15, 'bold'))
-        self.mm_entry.place(x=150, y=665)
-        lbs=Label(self.main_window, text='/', bg='White', font=('arial', 20, 'bold')).place(x=195, y=660)
-        self.yy_entry=Entry(self.main_window, textvariable=self.yy, width=7, bg='grey', font=('arial', 15, 'bold'))
-        self.yy_entry.place(x=220, y=665)
+        frame_date_search=Frame(self.main_window,  width=460, height=100,bg='grey', relief=SUNKEN, bd=5).place(x=15, y=650)
+        lbs=Label(self.main_window, text='Date:', bg='grey', font=('arial', 15, 'bold')).place(x=20, y=660)
+        self.dd_entry=Entry(self.main_window, width=3,textvariable=self.dd,bg='white', font=('arial', 15, 'bold'))
+        self.dd_entry.place(x=80, y=660)
+        lbs=Label(self.main_window, text='/', bg='grey',font=('arial', 20, 'bold')).place(x=125, y=655)
+        self.mm_entry=Entry(self.main_window,width=3, textvariable=self.mm,bg='white', font=('arial', 15, 'bold'))
+        self.mm_entry.place(x=150, y=660)
+        lbs=Label(self.main_window, text='/', bg='grey',font=('arial', 20, 'bold')).place(x=195, y=655)
+        self.yy_entry=Entry(self.main_window, textvariable=self.yy, width=7, bg='white', font=('arial', 15, 'bold'))
+        self.yy_entry.place(x=220, y=660)
+        lbs=Label(self.main_window, text='=', bg='grey',font=('arial', 20, 'bold')).place(x=305, y=660)
+
         self.result_entry=Entry(self.main_window, textvariable=self.show_result, width=12,state=DISABLED, bg='White',relief=RAISED, font=('arial', 15, 'bold'))
-        self.result_entry.place(x=330, y=665)
-        self.ddbutton=Button(self.main_window, text='SEARCH',bg='green',fg='white',font=('arial', 10, 'bold'))
-        self.ddbutton.place(x=50, y=715)
-        self.ddbutton=Button(self.main_window, text='CLEAR',bg='yellow',fg='black',font=('arial', 10, 'bold'))
-        self.ddbutton.place(x=200, y=715)
+        self.result_entry.place(x=330, y=660)
+        self.ddbutton=Button(self.main_window, text='SEARCH',bg='green',fg='white',width=16,font=('arial', 10, 'bold'), command=self.get_date)
+        self.ddbutton.place(x=80, y=715)
+        self.ddbutton=Button(self.main_window, text='CLEAR', bg='white',width=16,fg='black',font=('arial', 10, 'bold'),command=self.date_reset)
+        self.ddbutton.place(x=330, y=715)
         button_frame=Frame(self.main_window, width=710, height=70, bg='white',bd=8, relief= RIDGE).place(x=500, y=130)
         self.button=Button(self.main_window, text='Add Booking',bg='orange',fg='black',height=2, width=15,font=('arial', 10, 'bold'),command=self.add_booking)
         self.button.place(x=510, y=142)
