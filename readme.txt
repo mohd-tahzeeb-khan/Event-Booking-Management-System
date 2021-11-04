@@ -1,6 +1,7 @@
 This project is developed by: TAHZEEB TANVEER MOHD KHAN
 project started on 16-10-2021
 expected ending date: 31-10-2021
+project done
 
 
 topic: Lawn booking and managemet system
@@ -12,6 +13,24 @@ Database used: MongoDB
 note: work on minimum windows only, no need to work on many windows.
 
 files created:
-pfd_format.py=this file contents all the format of pdf billing. this file only creates and save the pdf into this memory system
 main.py= this file will content all the main stuff used for this project, this project uses minimum windows only
 db.py=this file will content all the queries of database......
+
+
+
+
+before running this project you need to install:
+1. Pillow(PIL)
+2. datatime
+3. Mongodb(Download using this link:)
+4. pymongo
+
+To Install all the External Librabry follow:
+
+1. open cmd(command prompt)
+2. type "pip install pillow"
+this command will install pillow
+3. then type ""pip install "pymongo"
+this command will install pymongo which will help to connect python with mongo database
+4. then type ""pip install "datetime"
+this command will install datetime object

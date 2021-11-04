@@ -359,11 +359,19 @@ class Daata_Decorations():
         delete_btn=Button(self.working_staff, width=15, text='Delete', font=(8), command=self.delete_worker).place(x=260, y=700)
         exit_btn=Button(self.working_staff, width=15, text='Exit',bg='red', font=(8),command=self.working_staff.destroy).place(x=460, y=700)
         self.working_staff.mainloop()
-    def credit(self):
-        credit=tk.Tk()
-        credit.geometry('800x800')
-        credit.title('Billing')
-        credit.mainloop()
+    def Developer(self):
+        Developer=tk.Toplevel()
+        Developer.geometry('800x800')
+        Developer.title('Developed By:')
+        Developer['bg']='black'
+        image1 = Image.open("developer.jpg")
+
+        resize_image=image1.resize((785,785), Image.ANTIALIAS)
+        test = ImageTk.PhotoImage(resize_image)
+        panel = tk.Label(Developer,image=test)
+        panel.image = test
+        panel.place(x=5,y=5)
+        Developer.mainloop()
 
     def send_setting(self):
         for data in d1.fetch_settings():
@@ -550,12 +558,12 @@ class Daata_Decorations():
         self.button.place(x=650, y=142)
         self.button=Button(self.main_window, text='Working Stuff',bg='orange',fg='Black',height=2, width=15,font=('arial', 10, 'bold'),command= self.working_staff)
         self.button.place(x=790, y=142)
-        self.button=Button(self.main_window, text='Billing',bg='orange',height=2, width=15,fg='black',font=('arial', 10, 'bold'),command=self.credit)
+        self.button=Button(self.main_window, text='Billing',bg='orange',height=2,state=DISABLED, width=15,fg='black',font=('arial', 10, 'bold'))
         self.button.place(x=930, y=142)
         self.button=Button(self.main_window, text='Setting',bg='orange',fg='black',height=2, width=15,font=('arial', 10, 'bold'),command= self.setting)
         self.button.place(x=1070, y=142)
         about_frame=Frame(self.main_window, width=300, height=70, bg='white',bd=8, relief= RIDGE).place(x=1220, y=130)
-        self.button=Button(self.main_window, text='Developer',bg='orange',fg='black',height=2, width=16,font=('arial', 10, 'bold'))
+        self.button=Button(self.main_window, text='Developer',bg='orange',fg='black',height=2, width=16,font=('arial', 10, 'bold'), command=self.Developer)
         self.button.place(x=1230, y=142)
         self.button=Button(self.main_window, text='Exit',bg='red',fg='white',height=2, width=15,command=self.main_window.destroy,font=('arial', 10, 'bold'))
         self.button.place(x=1380, y=142)
