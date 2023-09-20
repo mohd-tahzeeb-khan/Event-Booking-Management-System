@@ -1,7 +1,11 @@
 # Hi, I'm Mohd Tahzeeb Khan! 👋. 
 
 
+
 # Event Management System for banquet Halls.
+A Project Developed by me for the *Daata Decorations and Events, Nagpur*
+This was my First Live Project. This Project help me to understand, learn some new and unique concepts and skills. As this project consist of No-SQL Database(MongoDB) which is a well-known database service.
+May be Update for this project will be soon in 2024 with some more advancement and new concepts.
 
 
 This project is developed by: TAHZEEB TANVEER MOHD KHAN
