@@ -1,6 +1,7 @@
+# Hi, I'm Mohd Tahzeeb Khan! 👋. 
 
 
-
+# Event Management System for banquet Halls.
 
 
 This project is developed by: TAHZEEB TANVEER MOHD KHAN
