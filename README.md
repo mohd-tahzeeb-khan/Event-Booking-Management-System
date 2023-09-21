@@ -1,5 +1,5 @@
 
-# Hi, I'm Mohd Tahzeeb Khan! 👋. 
+#  **Hi, I'm Mohd Tahzeeb Khan! 👋.**
 
 
 # Event Management System for banquet Halls.
@@ -43,14 +43,25 @@ Install all dependencies, by paste the command in your project Directory's termi
 Install all dependencies, by paste the command in your project Directory's terminal.
 ```bash
             pip install -r requirements.txt
-```          
-After installing all the dependencies, Execute below code in your terminal.
+```         
+After installing all the dependencies or requirements.txt file.
+
+Follow below commands
+
+
+
+
+## Run Locally
+
+Go to the project directory
+
 ```bash
-            python main.py
+  python setup.py
 ```
-That's all, to Execute this project
 
-
+```bash
+  python databasee.py
+```
 
 
 
@@ -58,8 +69,14 @@ That's all, to Execute this project
 
 **main.py** - Content the main logic, and Program.
 
-**database.db** -Content the database queries and stuff related to database.
-## Badges
+**database.py** -Content the database queries and stuff related to database.
+
+**setup.py** -This file has all required setup for database.
+
+**tkcalendar** - This folder has calendar files which is used in this project.
+
+**Images** - This folder has all the images file which are required in project. 
+## **Badges**
 
 Add badges from somewhere like: [shields.io](https://shields.io/)
 
