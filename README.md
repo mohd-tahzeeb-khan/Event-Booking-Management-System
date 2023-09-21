@@ -34,6 +34,7 @@ Install all dependencies, by paste the command in your project Directory's termi
             pip install pymongo
             pip install datetime
             pip install pillow
+            pip install tkcalendar
 ```
 
 **or**
