@@ -53,14 +53,15 @@ Follow below commands
 
 ## Run Locally
 
-Go to the project directory
+Go to the project directory and run this commands in sequence.
 
+setup.py file has database setup.
 ```bash
   python setup.py
 ```
-
+main.py file has all the logic and everything
 ```bash
-  python databasee.py
+  python main.py
 ```
 
 
