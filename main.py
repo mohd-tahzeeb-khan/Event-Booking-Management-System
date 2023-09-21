@@ -11,8 +11,10 @@ from datetime import date
 import requests
 import time
 from tkinter.scrolledtext import ScrolledText
-from database import Dawat_lawn_database
+from database import Dawat_lawn_database 
+from setup import database_setup
 d1=Dawat_lawn_database()
+database_setup=database_setup()
 
 class Daata_Decorations():
     
@@ -552,12 +554,11 @@ class Daata_Decorations():
         inquiry_frame=Frame(self.main_window, width=490, height=640, bg='white',bd=8, relief= RIDGE).place(x=2, y=130)
         inquirylbl_frame=Frame(self.main_window, width=450, height=56, bg='yellow', relief=RIDGE, bd=3).place(x=20, y=140)
         inquiry_label=Label(self. main_window, text='BOOKING CALENDAR',font=('arail', 25, 'bold'), bg='Yellow').place(x=60, y=145)
-        self.cal=Calendar(self.main_window, selectmode='none',showweeknumbers=False,weekendbackground='white', weekendforeground='black')
+        self.cal=Calendar(self.main_window, selectmode='none',showweeknumbers=False, weekendbackground='white', weekendforeground='black')
         self.cal.pack(side=LEFT,padx=20, ipadx=10,pady=20, ipady=130)
         for i in date_temp_empty_list:
             events={i:('london','Program')}
             for k in events.keys():
-                #print(k)
                 date1=datetime.datetime.strptime(k,"%d/%m/%Y").date()
                 self.cal.calevent_create(date1, events[k][0], events[k][1])
             self.cal.tag_config('Program', background='green', foreground='white')
