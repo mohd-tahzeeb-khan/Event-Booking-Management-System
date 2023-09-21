@@ -1,4 +1,4 @@
-import tkinter
+
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
@@ -239,8 +239,8 @@ class Daata_Decorations():
         today= date.today()
         self.cancel_book.geometry('800x800')
         self.cancel_book.title('CANCELLING')
-        image1 = Image.open("search_logo.png")
-        resize_image=image1.resize((80,80), Image.ANTIALIAS)
+        image1 = Image.open("Images/search_logo.png")
+        resize_image=image1.resize((80,80), Image.LANCZOS)
         test = ImageTk.PhotoImage(resize_image)
         label1 = tk.Label(image=test)
         label1.image = test
@@ -364,9 +364,9 @@ class Daata_Decorations():
         Developer.geometry('800x800')
         Developer.title('Developed By:')
         Developer['bg']='black'
-        image1 = Image.open("developer.jpg")
+        image1 = Image.open("Images/developer.jpg")
 
-        resize_image=image1.resize((785,785), Image.ANTIALIAS)
+        resize_image=image1.resize((785,785), Image.LANCZOS)
         test = ImageTk.PhotoImage(resize_image)
         panel = tk.Label(Developer,image=test)
         panel.image = test
@@ -526,8 +526,8 @@ class Daata_Decorations():
         timeout = 1
         try:
             request=requests.get(url, timeout=timeout)
-            image1 = Image.open("wifi.png")
-            resize_image=image1.resize((50,40), Image.ANTIALIAS)
+            image1 = Image.open("Images/wifi.png")
+            resize_image=image1.resize((50,40), Image.LANCZOS)
             test = ImageTk.PhotoImage(resize_image)
 
             label1 = tk.Label(image=test)
@@ -536,8 +536,8 @@ class Daata_Decorations():
 
         # catching exception
         except (requests.ConnectionError, requests.Timeout) as exception:
-            image1 = Image.open("no_wifi.png")
-            resize_image=image1.resize((50,40), Image.ANTIALIAS)
+            image1 = Image.open("Images/no_wifi.png")
+            resize_image=image1.resize((50,40), Image.LANCZOS)
             test = ImageTk.PhotoImage(resize_image)
             label1 = tk.Label(image=test)
             label1.image = test
@@ -546,14 +546,13 @@ class Daata_Decorations():
         height1=self.main_window.winfo_screenheight()
         self.main_window.geometry('%dx%d'%(width1, height1))
         self.main_window.title('Daata Decorations & Bichayat')
-        self.main_window.iconbitmap('food.ico')
+        self.main_window.iconbitmap('Images/food.ico')
         frame1=Frame(self.main_window, width=width1, height=100, bg='blue').place(x=1,y=10)
         lbs=Label(self.main_window, text='DAWAT LAWN & GARDEN', font=('courier', 60, 'bold'), bg='blue', fg='White').place(x=300, y=10)
         inquiry_frame=Frame(self.main_window, width=490, height=640, bg='white',bd=8, relief= RIDGE).place(x=2, y=130)
         inquirylbl_frame=Frame(self.main_window, width=450, height=56, bg='yellow', relief=RIDGE, bd=3).place(x=20, y=140)
         inquiry_label=Label(self. main_window, text='BOOKING CALENDAR',font=('arail', 25, 'bold'), bg='Yellow').place(x=60, y=145)
         self.cal=Calendar(self.main_window, selectmode='none',showweeknumbers=False,weekendbackground='white', weekendforeground='black')
-        
         self.cal.pack(side=LEFT,padx=20, ipadx=10,pady=20, ipady=130)
         for i in date_temp_empty_list:
             events={i:('london','Program')}

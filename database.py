@@ -3,11 +3,6 @@ from pymongo import MongoClient
   
   
 class Dawat_lawn_database():
-
-
-
-
-
     def order_booking_event(self,bokedondate,bill, partyname, phone1, phone2, occ, persons, advancereceive, bookingfordate, addressofparty, rent, decoration, stage, watchmen,noofwatch,cleaningcharges,watercharges,electriccharges,totalamt):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["Dawat_lawn_2021"]#database name
@@ -33,7 +28,7 @@ class Dawat_lawn_database():
             'eletric charges':electriccharges,
             'total':totalamt
         }
-        Collection.insert(temp_dic)
+        Collection.insert_one(temp_dic)
 
     '''def cancel_orderbooking_event(self,bill, phone1,dateforbook):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
@@ -81,8 +76,7 @@ class Dawat_lawn_database():
         print(now, alter)
         myquery = { "bill":now }
         newvalues = { "$set": { "bill": alter} }
-        sex=Collection.update_one(myquery, newvalues)
-        print(sex)
+        Collection.update_one(myquery, newvalues)
 
     def delete_order(self, bill_nom):
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
@@ -110,7 +104,6 @@ class Dawat_lawn_database():
         db = myclient["Dawat_lawn_2021"]#database name
         Collection = db["Workers"]
         i=Collection.find({},{'_id':0})
-        
         return i
 
     def Delete_worker(self, name, phone):
@@ -127,6 +120,7 @@ class Dawat_lawn_database():
         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
         db = myclient["Dawat_lawn_2021"]#database name
         Collection = db["Settings"]#collection name
+        Collection.find({},{'_id':0})
 
         dic_old_alter_settings={
             'Lawn Rent':lawn_rent,
@@ -173,9 +167,39 @@ class Dawat_lawn_database():
         i=Collection.find({},{'_id':0})
         
         return i
-
-
+#     def __init__(self):
+#         print("Start")
+#         myclient = MongoClient("mongodb://localhost:27017/") #making connection 
+#         db = myclient["Dawat_lawn_2021"]#database name
+#         Collection = db["Order"]
+#         data={
+#   "booked on date": "20/09/2023",
+#   "bill No": 1,
+#   "Party Name": "Example name",
+#   "Phone": {
+#     "$numberLong": "0"
+#   },
+#   "alternate No": {
+#     "$numberLong": "0"
+#   },
+#   "occasion": "Birthday",
+#   "person": 0,
+#   "advance": 0,
+#   "Booking for date": "21/02/2024",
+#   "address": "------",
+#   "lawn rent": 0,
+#   "lawn decoration": 0,
+#   "gate+stage": 0,
+#   "watchman": 0,
+#   "No of watchman": 0,
+#   "cleaning charges": 0,
+#   "water charges": 0,
+#   "eletric charges": 0,
+#   "total": 0
+# }
+#         Collection.insert_one(data)
         
 
 #d1=Dawat_lawn_database()
+#d1.order_booking_event('20/09/2023',2, 'mohd tahzeeb khan', 7498518671, 9822130819, 23, 750, 15000, '21/02/2024', 'jafar nagar', 20000, 15000, 1200, 300,2,600,1200,1500,20000)
 #d1.Alter_settings(12000,3500,1500,300,1,250,600,150,7498518671,'tahzeebk80@gmail.com','@tahzeeb8.py')
